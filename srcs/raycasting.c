@@ -6,7 +6,7 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:32:40 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 15:02:43 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:21:28 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,101 +17,100 @@ typedef struct s_raycast
 	int		screen;
 	t_loc	dir_vec;
 	t_loc	plane_vec;
-	int		mapX;
-	int		mapY;
-	t_loc	deltaDist;
-	t_loc	sideDist;
-	int		stepX;
-	int		stepY;
+	int		map_x;
+	int		map_y;
+	t_loc	delta;
+	t_loc	side_dist;
+	int		step_x;
+	int		step_y;
 }	t_raycast;
 
-void	set_rayDir(t_game *g, t_raycast *rc, int x)
+void	set_ray_dir(t_game *g, t_raycast *rc, int x)
 {
-	double	cameraX;
-	t_loc	rayDir;
+	double	camera;
+	t_loc	ray_dir;
 
-	//calculate ray position and direction
-	cameraX = 2 * x / (double)rc->screen - 1; //x-coordinate in camera space
-	rayDir = add_vecs(rc->dir_vec, sc_mult(rc->plane_vec, cameraX));
-	g->ray_dirs[x] = rayDir;
-	rc->deltaDist.x = sqrt(1 + \
-		(g->ray_dirs[x].y * g->ray_dirs[x].y) / (g->ray_dirs[x].x * g->ray_dirs[x].x));
-	rc->deltaDist.y = sqrt(1 + \
-		(g->ray_dirs[x].x * g->ray_dirs[x].x) / (g->ray_dirs[x].y * g->ray_dirs[x].y));
+	camera = 2 * x / (double)rc->screen - 1;
+	ray_dir = add_vecs(rc->dir_vec, sc_mult(rc->plane_vec, camera));
+	g->ray_dirs[x] = ray_dir;
+	rc->delta.x = sqrt(1 + (g->ray_dirs[x].y * g->ray_dirs[x].y) \
+		/ (g->ray_dirs[x].x * g->ray_dirs[x].x));
+	rc->delta.y = sqrt(1 + (g->ray_dirs[x].x * g->ray_dirs[x].x) \
+		/ (g->ray_dirs[x].y * g->ray_dirs[x].y));
 }
 
-void	set_step_sideDist(t_game *g, t_raycast *rc, int x)
+void	set_step_side_dist(t_game *g, t_raycast *rc, int x)
 {
-	int	mapX;
-	int	mapY;
+	int	map_x;
+	int	map_y;
 
-	mapX = rc->mapX;
-	mapY = rc->mapY;
+	map_x = rc->map_x;
+	map_y = rc->map_y;
 	if (g->ray_dirs[x].x < 0)
 	{
-		rc->stepX = -1;
-		rc->sideDist.x = (g->player->loc.x - mapX) * rc->deltaDist.x;
+		rc->step_x = -1;
+		rc->side_dist.x = (g->player->loc.x - map_x) * rc->delta.x;
 	}
 	else
 	{
-		rc->stepX = 1;
-		rc->sideDist.x = (mapX + 1.0 - g->player->loc.x) * rc->deltaDist.x;
+		rc->step_x = 1;
+		rc->side_dist.x = (map_x + 1.0 - g->player->loc.x) * rc->delta.x;
 	}
 	if (g->ray_dirs[x].y < 0)
 	{
-		rc->stepY = -1;
-		rc->sideDist.y = (g->player->loc.y - mapY) * rc->deltaDist.y;
+		rc->step_y = -1;
+		rc->side_dist.y = (g->player->loc.y - map_y) * rc->delta.y;
 	}
 	else
 	{
-		rc->stepY = 1;
-		rc->sideDist.y = (mapY + 1.0 - g->player->loc.y) * rc->deltaDist.y;
+		rc->step_y = 1;
+		rc->side_dist.y = (map_y + 1.0 - g->player->loc.y) * rc->delta.y;
 	}
 }
 
 void	set_side_dist(t_game *g, t_raycast *rc, int x, int side)
 {
-	if(side == 0)
-		rc->sideDist.x = (rc->sideDist.x - rc->deltaDist.x);
+	if (side == 0)
+		rc->side_dist.x = (rc->side_dist.x - rc->delta.x);
 	else
-		rc->sideDist.y = (rc->sideDist.y - rc->deltaDist.y);
-	if (rc->sideDist.x < rc->sideDist.y)
-		g->distances[x] = rc->sideDist.x;
+		rc->side_dist.y = (rc->side_dist.y - rc->delta.y);
+	if (rc->side_dist.x < rc->side_dist.y)
+		g->distances[x] = rc->side_dist.x;
 	else
-		g->distances[x] = rc->sideDist.y;
+		g->distances[x] = rc->side_dist.y;
 	g->sides[x] = side;
 }
 
 void	perform_rc(t_game *g, t_raycast *rc, int x)
 {
-	int hit = 0;
-	int side;
-	int mapX = rc->mapX;
-	int mapY = rc->mapY;
+	int	hit;
+	int	side;
 
+	hit = 0;
 	while (hit == 0)
 	{
-		if (rc->sideDist.x < rc->sideDist.y)
+		if (rc->side_dist.x < rc->side_dist.y)
 		{
-			rc->sideDist.x += rc->deltaDist.x;
-			mapX += rc->stepX;
+			rc->side_dist.x += rc->delta.x;
+			rc->map_x += rc->step_x;
 			side = 0;
 		}
 		else
 		{
-			rc->sideDist.y += rc->deltaDist.y;
-			mapY += rc->stepY;
+			rc->side_dist.y += rc->delta.y;
+			rc->map_y += rc->step_y;
 			side = 1;
 		}
-		if (g->map[mapY * 24 + mapX] > 0)
+		if (g->map[rc->map_y * 24 + rc->map_x] > 0)
 			hit = 1;
 	}
 	set_side_dist(g, rc, x, side);
 }
 
-void cast_rays(t_player	*p)
+void	cast_rays(t_player *p)
 {
 	t_raycast	rc;
+	int			x;
 
 	rc.screen = p->game->graphics->screen_width;
 	rc.dir_vec = dir2vec(p->direction);
@@ -119,14 +118,15 @@ void cast_rays(t_player	*p)
 	p->game->distances = malloc(sizeof(double) * rc.screen);
 	p->game->sides = malloc(sizeof(int) * rc.screen);
 	p->game->ray_dirs = malloc(sizeof(t_loc) * rc.screen);
-	rc.mapX = (int)p->loc.x;
-	rc.mapY = (int)p->loc.y;
-
-	for(int x = 0; x < rc.screen; x++)
+	x = 0;
+	while (x < rc.screen)
 	{
-		set_rayDir(p->game, &rc, x);
-		set_step_sideDist(p->game, &rc, x);
+		rc.map_x = (int)p->loc.x;
+		rc.map_y = (int)p->loc.y;
+		set_ray_dir(p->game, &rc, x);
+		set_step_side_dist(p->game, &rc, x);
 		perform_rc(p->game, &rc, x);
+		x++;
 	}
 }
 
@@ -138,6 +138,6 @@ void cast_rays(t_player	*p)
 // 	p->game->distances = malloc(sizeof(double) * rc->screen);
 // 	p->game->sides = malloc(sizeof(int) * rc->screen);
 // 	p->game->ray_dirs = malloc(sizeof(t_loc) * rc->screen);
-// 	rc->mapX = (int)p->loc.x;
-// 	rc->mapY = (int)p->loc.y;
+// 	rc->map_x = (int)p->loc.x;
+// 	rc->map_y = (int)p->loc.y;
 // }
