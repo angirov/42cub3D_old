@@ -9,7 +9,7 @@ SRCS_FILES =	main.c \
 				math.c \
 				minimap.c \
 				raycasting.c \
-				walls_color.c
+				walls_tex.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 

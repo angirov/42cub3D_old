@@ -6,7 +6,7 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 19:05:05 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 17:30:56 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:37:30 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_game
 	t_loc		*ray_dirs;
 	double		*distances;
 	int			*sides;
+	double		*wallhits;
 }	t_game;
 
 void	set_sizes(t_game *game, int width, int heigth, int scale);
