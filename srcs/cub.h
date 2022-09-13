@@ -6,7 +6,7 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 19:05:05 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 14:59:19 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:30:56 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 // window
 # define WIDTH 1600
 # define HEIGHT 800
+# define HORISONT 0.7
 # define TITLE "Fdf"
 
 // colors

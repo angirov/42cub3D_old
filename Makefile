@@ -8,7 +8,8 @@ SRCS_FILES =	main.c \
 				key_hooks.c \
 				math.c \
 				minimap.c \
-				raycasting.c
+				raycasting.c \
+				walls_color.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
