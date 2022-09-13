@@ -1,6 +1,6 @@
 NAME = cub3D
 
-SRCS_DIR = ../srcs/
+SRCS_DIR = srcs/
 SRCS_FILES =	main.c \
 				mlx_api/free_mlx.c \
 				drawing.c \
@@ -17,7 +17,7 @@ OBJ = ${SRCS:.c=.o}
 HEADERS = $(SRCS_DIR)cub.h
 
 # ========== libraries ==========
-LIB_DIR = ../libs
+LIB_DIR = libs
 
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
