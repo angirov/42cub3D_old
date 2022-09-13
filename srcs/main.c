@@ -6,15 +6,35 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 14:20:19 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 11:06:30 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:02:50 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+void	draw_walls(t_game *g)
+{
+	int	screen;
+	
+	screen = g->graphics->screen_width;
+	for(int x = 0; x < screen; x++)
+	{
+		int h = g->graphics->screen_height;
+		int lineHeight = (int)(h / g->distances[x]);
+		int drawStart = -lineHeight / 2 + h / 2;
+		if(drawStart < 0)drawStart = 0;
+		int drawEnd = lineHeight / 2 + h / 2;
+		if(drawEnd >= h)drawEnd = h - 1;
+		int color = RED;
+		if (g->sides[x] == 1) {color = color / 2;}
+		draw_line((t_loc){x, drawStart}, (t_loc){x, drawEnd}, 1, color, g->graphics);
+	}
+}
+
 void	draw_all(t_game *game)
 {
 	cast_rays(game->player);
+	draw_walls(game);
 	map_background(game);
 	draw_grid(game);
 	draw_rays(game);
@@ -61,9 +81,9 @@ int	main(int argc, char **argv)
 	set_sizes(game, map_w, map_h, 20);
 	game->player = (t_player *)malloc(sizeof(t_player));
 	game->player->game = game;
-	player_set_location(game->player, (t_loc){3.593465, 4.772435});
+	player_set_location(game->player, (t_loc){16.593465, 14.772435});
 	game->player->speed = 0.355678;
-	game->player->direction = dtr(90 + 180);
+	game->player->direction = dtr(90 - 180);
 	game->player->rotation_rate = dtr(15);
 	
 	game->graphics = api_init_graphics(1600, 800, TITLE);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 19:05:05 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 11:06:58 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:59:19 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void	draw_grid(t_game *g);
 
 // raycasting.c
 void cast_rays(t_player	*p);
+void	draw_walls(t_game *g);
 
 // key_hooks.c
 int		deal_key(int key, t_game *game);
