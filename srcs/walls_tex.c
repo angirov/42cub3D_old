@@ -6,7 +6,7 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 17:22:36 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 17:51:53 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/14 20:27:54 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	side_dir(t_loc ray_dir, int side)
 	return dir;
 }
 
-int	set_color(t_loc ray_dir, int side)
+int	my_set_color(t_loc ray_dir, int side)
 {
 	enum dirs	dir;
 	int			color;
@@ -50,7 +50,6 @@ int	set_color(t_loc ray_dir, int side)
 		color = GRAY;
 	return (color);
 }
-
 
 void	wall_hits(t_game *g)
 {
@@ -69,7 +68,6 @@ void	wall_hits(t_game *g)
 			wall = g->player->loc.y + g->distances[x] * g->ray_dirs[x].y;
 		wall -= (int)wall;
 		g->wallhits[x] = wall;
-		printf("wall[%d]: %lf\n", x, wall);
 		x++;
 	}
 }
@@ -92,7 +90,7 @@ void	draw_walls(t_game *g)
 		drawEnd = lineHeight / 2 + h * HORISONT;
 		if(drawEnd >= h)
 			drawEnd = h - 1;
-		int color = set_color(g->ray_dirs[x], g->sides[x]);
+		int color = my_set_color(g->ray_dirs[x], g->sides[x]);
 		draw_line((t_loc){x, drawStart}, (t_loc){x, drawEnd}, 1, color, g->graphics);
 	}
 	wall_hits(g);

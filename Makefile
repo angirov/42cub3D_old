@@ -9,7 +9,12 @@ SRCS_FILES =	main.c \
 				math.c \
 				minimap.c \
 				raycasting.c \
-				walls_tex.c
+				walls_tex.c \
+				parser/colors_n_textures.c \
+				parser/errors.c \
+				parser/map_checker.c \
+				parser/parse.c \
+				parser/parse_map_utils.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
@@ -33,7 +38,7 @@ MODULES = 	mlx_api \
 			game
 MODULES_DIRS = $(addprefix $(SRCS_DIR), $(MODULES))
 MODULES_INCL = $(addprefix -I, $(MODULES_DIRS))
-INCLUDES_LOCAL = -I$(SRCS_DIR) -I$(LIBFT_DIR) $(MODULES_INCL)
+INCLUDES_LOCAL = -I$(SRCS_DIR) -I$(LIBFT_DIR) $(MODULES_INCL) -I$(SRCS_DIR)parser
 # ========== rules ==========
 all: $(NAME)
 

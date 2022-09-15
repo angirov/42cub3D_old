@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   cub_old.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 19:05:05 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/15 20:25:49 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:52:48 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@
 # define GRAY 0x444444
 # define L_GRAY 0xbebebe
 
-# include "libft.h"
+
 # include "mlx_api.h"
-# include "parser.h"
 
 typedef struct s_point
 {
@@ -65,7 +64,6 @@ typedef struct s_fpoint
 
 typedef struct s_map	t_map;
 typedef struct s_game	t_game;
-typedef struct s_parser	t_parser;
 
 typedef struct s_loc
 {
@@ -86,7 +84,7 @@ typedef struct s_grid
 {
 	int	heigth;
 	int	width;
-
+	int	scale;
 }	t_grid;
 
 typedef struct s_game
@@ -94,13 +92,9 @@ typedef struct s_game
 	t_graphics	*graphics;
 	t_player	*player;
 	t_grid		grid;
-	t_parser	*parser;
 	int			px_width;
 	int			px_heigth;
-	// ===================================
-	char		*map; //(*map)[24];  // https://stackoverflow.com/questions/1052818
-	int			scale;
-	// ===================================
+	int			*map; //(*map)[24];  // https://stackoverflow.com/questions/1052818
 	t_loc		*ray_dirs;
 	double		*distances;
 	int			*sides;

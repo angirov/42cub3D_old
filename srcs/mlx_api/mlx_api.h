@@ -2,7 +2,8 @@
 # define MLX_API_H
 
 # if defined(__linux__)
-#  include "libft.h"
+// #  include "libft.h"
+#  include <stdlib.h>
 #  include <mlx.h>
 #  define KEY_ESC 65307
 #  define KEY_LEFT 65361
@@ -24,6 +25,7 @@
 #  define KEY_C 99
 
 # elif defined(__APPLE__)
+#  include <stdlib.h>
 #  include "../libs/minilibx_macos/mlx.h"
 #  include "../libs/libft/libft.h"
 

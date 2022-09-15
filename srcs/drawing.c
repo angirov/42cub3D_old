@@ -6,7 +6,7 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 10:23:34 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 11:06:30 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/14 22:00:41 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	fill_sqare(t_game *g, t_loc corner, int side, int color)
 	int corner_x;
 	int corner_y;
 
-	corner_x = corner.x * g->grid.scale;
-	corner_y = corner.y * g->grid.scale;
+	corner_x = corner.x * g->scale;
+	corner_y = corner.y * g->scale;
 	
-	for (int i = 0; i < side*g->grid.scale; i++)
-		for (int j = 0; j < side*g->grid.scale; j++)
+	for (int i = 0; i < side*g->scale; i++)
+		for (int j = 0; j < side*g->scale; j++)
 			api_put_pixel(g->graphics, corner_x + i, corner_y + j, color);
 }
 
@@ -84,10 +84,10 @@ void	fill_rect(t_game *g, t_loc corner, int x, int y, int color)
 	int corner_x;
 	int corner_y;
 
-	corner_x = corner.x * g->grid.scale;
-	corner_y = corner.y * g->grid.scale;
+	corner_x = corner.x * g->scale;
+	corner_y = corner.y * g->scale;
 	
-	for (int i = 0; i < y*g->grid.scale; i++)
-		for (int j = 0; j < x*g->grid.scale; j++)
+	for (int i = 0; i < y*g->scale; i++)
+		for (int j = 0; j < x*g->scale; j++)
 			api_put_pixel(g->graphics, corner_x + i, corner_y + j, color);
 }
