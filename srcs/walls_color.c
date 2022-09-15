@@ -6,7 +6,7 @@
 /*   By: vangirov <vangirov@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 17:22:36 by vangirov          #+#    #+#             */
-/*   Updated: 2022/09/13 17:23:45 by vangirov         ###   ########.fr       */
+/*   Updated: 2022/09/15 20:40:22 by vangirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	side_dir(t_loc ray_dir, int side)
 	return dir;
 }
 
-int	set_color(t_loc ray_dir, int side)
+int	my_set_color(t_loc ray_dir, int side)
 {
 	enum dirs	dir;
 	int			color;
@@ -69,7 +69,7 @@ void	draw_walls(t_game *g)
 		drawEnd = lineHeight / 2 + h * HORISONT;
 		if(drawEnd >= h)
 			drawEnd = h - 1;
-		int color = set_color(g->ray_dirs[x], g->sides[x]);
+		int color = my_set_color(g->ray_dirs[x], g->sides[x]);
 		draw_line((t_loc){x, drawStart}, (t_loc){x, drawEnd}, 1, color, g->graphics);
 	}
 }
